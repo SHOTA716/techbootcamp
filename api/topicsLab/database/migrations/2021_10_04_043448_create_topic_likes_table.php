@@ -15,6 +15,8 @@ class CreateTopicLikesTable extends Migration
     {
         Schema::create('topic_likes', function(Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('topic_id')->constrained('topics');
             $table->timestamps();
         });
     }
