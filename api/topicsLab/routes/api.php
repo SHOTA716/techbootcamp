@@ -14,46 +14,38 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::middleware('auth:sanctum')->get('/user',function(Request $request){
     return $request->user();
 });
 
-Route::post('/login', [
-    App\Http\Controllers\LoginController::class,
-    'login'
+Route::post('/login',[
+    App\Http\Controllers\LoginController::class,'login'
 ]);
 
-Route::post('/register', [
-    App\Http\Controllers\UserController::class,
-    'store'
+Route::post('/register',[
+    App\Http\Controllers\UserController::class,'store'
 ]);
 
-Route::post('/logout', [
-    App\Http\Controllers\LoginController::class,
-    'logout'
+Route::post('/logout',[
+    App\Http\Controllers\LoginController::class,'logout'
 ]);
 
-Route::get('/topics', [
-    App\Http\Controllers\TopicController::class,
-    'index'
+Route::get('/topics',[
+    App\Http\Controllers\TopicController::class,'index'
 ]);
 
-Route::middleware('auth:sanctum')->get('/topic/{topic}', [
-    App\Http\Controllers\TopicController::class,
-    'show'
+Route::middleware('auth:sanctum')->get('/topic/{topic}',[
+    App\Http\Controllers\TopicController::class,'show'
 ]);
 
-Route::middleware('auth:sanctum')->post('/comment', [
-    App\Http\Controllers\CommentController::class,
-    'store'
+Route::middleware('auth:sanctum')->post('/comment',[
+    App\Http\Controllers\CommentController::class,'store'
 ]);
 
-Route::middleware('auth:sanctum')->post('/topic', [
-    App\Http\Controllers\TopicController::class,
-    'store'
+Route::middleware('auth:sanctum')->post('/topic',[
+    App\Http\Controllers\TopicController::class,'store'
 ]);
 
-Route::middleware('auth:sanctum')->get('/user/{user}', [
-    App\Http\Controllers\UserController::class,
-    'show'
+Route::middleware('auth:sanctum')->get('/user/{user}',[
+    App\Http\Controllers\UserController::class,'show'
 ]);
