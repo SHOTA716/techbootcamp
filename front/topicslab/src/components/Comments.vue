@@ -7,6 +7,7 @@
       <div class="comment-text">
         {{comment.body}}
       </div>
+      <Button label="いいね" icon="pi pi-check" iconPos="right" />
     </Fieldset>
   </div>
 </template>
@@ -24,8 +25,10 @@ export default {
 .p-fieldset {
   margin-top: 20px;
 }
-
 .comment-text {
   white-space:pre-wrap;
+}
+Button{
+  margin-top: 2%;
 }
 </style>

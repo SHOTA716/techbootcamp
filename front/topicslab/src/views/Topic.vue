@@ -8,6 +8,7 @@
         <div class="body-text">
           {{topic.body}}
         </div>
+        <Button label="いいね" icon="pi pi-check" iconPos="right" />
       </template>
       <template #footer>
         <span>
@@ -83,5 +84,8 @@ export default {
 .p-card-footer span {
   text-align: right;
   display: block;
+}
+Button{
+  margin-top: 2%;
 }
 </style>
