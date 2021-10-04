@@ -1,17 +1,18 @@
 <?php
+
 namespace Database\Factories;
 
-use App\Models\Comment;
+use App\Models\TopicLike;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class CommentFactory extends Factory
+class TopicLikeFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Comment::class;
+    protected $model = TopicLike::class;
 
     /**
      * Define the model's default state.
