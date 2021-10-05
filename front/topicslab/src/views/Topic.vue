@@ -8,6 +8,7 @@
         <div class="body-text">
           {{topic.body}}
         </div>
+        <Button label="いいね" icon="pi pi-check" iconPos="right" />
       </template>
       <template #footer>
         <span>
