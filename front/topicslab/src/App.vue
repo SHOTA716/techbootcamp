@@ -11,6 +11,7 @@
   <div class="content">
     <router-view/>
   </div>
+  <p><small>&copy; 2021 topics lab</small></p>
 </template>
 
 <script>
@@ -66,5 +67,9 @@ body {
       color: #42b983;
     }
   }
+}
+
+p{
+  text-align: center;
 }
 </style>
