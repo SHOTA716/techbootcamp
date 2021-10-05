@@ -2,10 +2,10 @@
   <div id="nav">
     <router-link to="/">ホーム</router-link> |
     <template v-if="authenticated">
-      <router-link to="/mypage">マイページ</router-link> |
+      <router-link to="/mypage">マイページ</router-link>
     </template>
     <template v-else>
-      <router-link to="/login">ログイン</router-link> |
+      <router-link to="/login">ログイン</router-link>
     </template>
   </div>
   <div class="content">
@@ -72,5 +72,4 @@ body {
 p{
   text-align: center;
 }
-
 </style>
