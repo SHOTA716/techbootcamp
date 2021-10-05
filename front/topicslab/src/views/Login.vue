@@ -2,7 +2,7 @@
   <div>
     <Card>
       <template #title>
-        Login
+        ログイン
       </template>
       <template #content>
         <div class="fields">
@@ -16,8 +16,9 @@
           </div>
         </div>
         <span>{{message}}</span>
+        <router-link to="/Register">新規登録はこちら</router-link>
         <div class="p-field">
-          <Button icon="pi pi-check" label="Login" v-on:click="login" />
+          <Button icon="pi pi-check" label="ログイン" v-on:click="login" />
         </div>
       </template>
     </Card>
@@ -87,5 +88,8 @@ export default {
       width: 100%;
     }
   }
+}
+span{
+  color:#ff0000;
 }
 </style>

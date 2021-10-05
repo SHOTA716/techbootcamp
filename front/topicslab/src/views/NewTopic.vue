@@ -8,16 +8,16 @@
         <label for="title">Topicタイトル</label>
         <InputText v-model="title" id="title" type="text" aria-describedby="title-help" />
         <small id="title-help">タイトルを入力してください。</small>
-        <p>{{messages.title}}</p>
+        <p><span>{{messages.title}}</span></p>
       </div>
       <div class="p-field">
         <label for="title">Topic内容</label>
         <Textarea v-model="body" :autoResize="true" rows="10" />
-        <p>{{messages.body}}</p>
+        <p><span>{{messages.body}}</span></p>
       </div>
       <div class="p-field">
-        <Button icon="pi pi-check" label="Save" v-on:click="submit" />
-        <p>{{messages.submit}}</p>
+        <Button icon="pi pi-check" label="投稿する" v-on:click="submit" />
+        <p><span>{{messages.submit}}</span></p>
       </div>
     </template>
   </Card>
@@ -88,4 +88,9 @@ export default {
   display: block;
   width: 100%;
 }
+
+span{
+  color:#ff0000;
+}
+
 </style>
