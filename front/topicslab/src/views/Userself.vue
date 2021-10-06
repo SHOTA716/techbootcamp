@@ -8,10 +8,10 @@
         {{user.name}}
         <TabView>
           <TabPanel header="Topics">
-            topic
+            {{user.topics}}
           </TabPanel>
           <TabPanel header="あなたのコメント">
-            comment
+            {{user.comments}}
           </TabPanel>
         </TabView>
       <Button label="トピック作成" v-on:click="toNewTopic" />
@@ -88,7 +88,7 @@ export default {
     getUser () {
       axios.get('/sanctum/csrf-cookie')
         .then(() => {
-          axios.get('/api/user')
+          axios.get('/api/mypage')
             .then((res) => {
               if (res.status === 200) {
                 this.user = res.data

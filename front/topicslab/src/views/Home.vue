@@ -34,5 +34,4 @@ export default {
     font-weight: bold;
     color: white;
   }
-}
 </style>
