@@ -9,7 +9,7 @@
       <div class="comment-text">
         {{comment.body}}
       </div>
-      <Button label="いいね" icon="pi pi-check" iconPos="right" />
+      <Button label="いいね" icon="pi pi-heart" iconPos="right" />
     </Fieldset>
   </div>
 </template>
