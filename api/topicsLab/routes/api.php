@@ -1,5 +1,5 @@
 <?php
-
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,8 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user',function(Request $request){
-    return $request->user();
+// Route::middleware('auth:sanctum')->get('/user',function(Request $request){
+//     return $request->user();
+// });
+
+Route::middleware('auth:sanctum')->get('/mypage',function(Request $request){
+    $user = $request->user();
+    return User::with('topics', 'comments')->find($user->id);
 });
 
 Route::post('/login',[

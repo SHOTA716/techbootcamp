@@ -2,7 +2,8 @@
   <div>
     <Card >
       <template #content>
-        {{user.name}}
+        {{user.topics}}
+        {{user.comments}}
       </template>
     </Card>
   </div>
