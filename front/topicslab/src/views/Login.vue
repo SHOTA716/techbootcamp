@@ -16,7 +16,6 @@
           </div>
         </div>
         <span>{{message}}</span>
-        <router-link to="/Register">新規登録はこちら</router-link>
         <div class="p-field">
           <Button icon="pi pi-check" label="ログイン" v-on:click="login" />
         </div>
@@ -51,6 +50,7 @@ export default {
               if (res.status === 200) {
                 console.log('ログイン成功')
                 localStorage.setItem('authenticated', 'true')
+                this.$router.push('/')
               } else {
                 this.message = 'ログインに失敗しました。'
               }
