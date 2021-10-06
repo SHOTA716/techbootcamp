@@ -2,11 +2,14 @@
   <div>
     <Fieldset v-for="comment in comments" :key="comment.id">
       <template #legend>
-        <span>{{comment.user.name}}</span>
+        <span>
+          <router-link :to="`/user/${comment.user_id}`">{{comment.user.name}}</router-link>
+        </span>
       </template>
       <div class="comment-text">
         {{comment.body}}
       </div>
+      <Button label="いいね" icon="pi pi-check" iconPos="right" />
     </Fieldset>
   </div>
 </template>
@@ -24,8 +27,10 @@ export default {
 .p-fieldset {
   margin-top: 20px;
 }
-
 .comment-text {
   white-space:pre-wrap;
+}
+Button{
+  margin-top: 2%;
 }
 </style>
