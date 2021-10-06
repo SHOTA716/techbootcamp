@@ -3,6 +3,7 @@
     <Card >
       <template #content>
         {{user.name}}
+        {{user.comments}}
       </template>
     </Card>
   </div>
