@@ -53,12 +53,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.p-card.p-component {
-  margin-bottom: 20px;
-}
-.p-card-content {
-  .topic-date {
-    font-size: 80%;
+  .p-card.p-component {
+    margin-bottom: 20px;
   }
-}
+  .p-card-content {
+    .topic-date {
+      font-size: 80%;
+    }
+  }
 </style>

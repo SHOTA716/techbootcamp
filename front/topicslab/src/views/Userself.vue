@@ -1,7 +1,7 @@
 <template>
   <div>
     <Card>
-      <template #title>
+       <template #title>
         マイページ
       </template>
       <template #content>
@@ -23,13 +23,17 @@
     </Card>
   </div>
 </template>
-
-
 <script>
 import axios from '@/supports/axios'
+import TabView from 'primevue/tabview'
+import TabPanel from 'primevue/tabpanel'
 
 export default {
   name: 'Userself',
+  components: {
+    TabView,
+    TabPanel
+  },
   data () {
     return {
       user: {}
@@ -88,9 +92,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.p-card-footer {
-  .p-button {
-    margin-right: 10px;
+  .p-card-footer {
+    .p-button {
+      margin-right: 10px;
+    }
   }
-}
 </style>

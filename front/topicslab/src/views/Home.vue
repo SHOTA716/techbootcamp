@@ -20,19 +20,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.top-logo {
-  display: block;
-  margin: 0 auto;
-  margin-bottom: 20px;
-  text-align: center;
-  img {
-    width: 200px;
-    height: auto;
-  }
-  .message {
+  .top-logo {
     display: block;
-    font-weight: bold;
-    color: white;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    text-align: center;
+    img {
+      width: 200px;
+      height: auto;
+    }
+    .message {
+      display: block;
+      font-weight: bold;
+      color: white;
+    }
   }
-}
 </style>

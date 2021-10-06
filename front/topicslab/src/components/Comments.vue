@@ -3,13 +3,13 @@
     <Fieldset v-for="comment in comments" :key="comment.id">
       <template #legend>
         <span>
-          <router-link to="/user/${user.id}">{{comment.user.name}}</router-link>
+          <router-link :to="`/user/${comment.user_id}`">{{comment.user.name}}</router-link>
         </span>
       </template>
       <div class="comment-text">
         {{comment.body}}
       </div>
-      <Button label="いいね" icon="pi pi-check" iconPos="right" />
+      <Button label="いいね" icon="pi pi-heart" iconPos="right" />
     </Fieldset>
   </div>
 </template>
