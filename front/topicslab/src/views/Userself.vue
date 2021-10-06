@@ -12,7 +12,7 @@
         {{user.name}}
         <TabView>
           <TabPanel header="Topics">
-            {{topic.title}}
+            <!-- {{topic.title}} -->
           </TabPanel>
           <TabPanel header="あなたのコメント">
             comment
