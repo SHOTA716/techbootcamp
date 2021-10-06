@@ -78,14 +78,15 @@ export default {
 </script>
 
 <style scoped>
-.body-text {
-  white-space:pre-wrap;
-}
-.p-card-footer span {
-  text-align: right;
-  display: block;
-}
-Button{
-  margin-top: 2%;
-}
+  .body-text {
+    white-space:pre-wrap;
+  }
+  .p-card-footer span {
+    text-align: right;
+    display: block;
+  }
+  Button{
+    margin-top: 2%;
+  }
+
 </style>

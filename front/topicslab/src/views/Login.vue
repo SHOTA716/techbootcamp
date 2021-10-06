@@ -16,7 +16,6 @@
           </div>
         </div>
         <span>{{message}}</span>
-        <router-link to="/Register">新規登録はこちら</router-link>
         <div class="p-field">
           <Button icon="pi pi-check" label="ログイン" v-on:click="login" />
         </div>
@@ -69,28 +68,30 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.p-card-content {
-  .fields {
-    text-align: center;
-  }
-
-  .p-field {
-    display: block;
-
-    label {
-      display: inline-block;
-      width: 10em;
-      margin-bottom: 10px;
+  .p-card-content {
+    .fields {
+      text-align: center;
     }
 
-    .p-button {
-      margin-top: 20px;
+    .p-field {
       display: block;
-      width: 100%;
+
+      label {
+        display: inline-block;
+        width: 10em;
+        margin-bottom: 10px;
+      }
+
+      .p-button {
+        margin-top: 20px;
+        display: block;
+        width: 100%;
+      }
     }
   }
-}
-span{
-  color:#ff0000;
-}
+
+  span{
+    color:#ff0000;
+  }
+
 </style>
