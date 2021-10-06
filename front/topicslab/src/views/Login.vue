@@ -91,7 +91,6 @@ export default {
     }
   }
 
-}
 span{
   color:#ff0000;
 }
