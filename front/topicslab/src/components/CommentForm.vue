@@ -64,11 +64,12 @@ export default {
 </script>
 
 <style scoped>
-  .p-card.p-component {
-    margin-top:  20px;
-  }
-  .p-field * {
-    display: block;
-    width: 100%;
-  }
+.p-card.p-component {
+  margin-top:  20px;
+}
+.p-field * {
+  display: block;
+  width: 100%;
+}
+
 </style>

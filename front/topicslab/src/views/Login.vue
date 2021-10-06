@@ -50,6 +50,7 @@ export default {
               if (res.status === 200) {
                 console.log('ログイン成功')
                 localStorage.setItem('authenticated', 'true')
+                this.$router.push('/')
               } else {
                 this.message = 'ログインに失敗しました。'
               }
@@ -90,8 +91,9 @@ export default {
     }
   }
 
-  span{
-    color:#ff0000;
-  }
+}
+span{
+  color:#ff0000;
+}
 
 </style>

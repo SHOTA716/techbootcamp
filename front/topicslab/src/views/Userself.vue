@@ -8,7 +8,7 @@
         {{user.name}}
         <TabView>
           <TabPanel header="Topics">
-            topics
+            topic
           </TabPanel>
           <TabPanel header="あなたのコメント">
             comment
@@ -41,7 +41,7 @@ export default {
   },
   mounted () {
     if (localStorage.getItem('authenticated') !== 'true') {
-      this.$router.push('login')
+      this.$router.push('/login')
       return
     }
 

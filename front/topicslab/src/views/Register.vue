@@ -61,6 +61,7 @@ export default {
             .then((res) => {
               if (res.status === 201) {
                 alert('ユーザー登録成功')
+                this.$router.push('/login')
               } else {
                 this.message = 'ユーザー登録に失敗しました。'
               }
@@ -99,4 +100,5 @@ export default {
         width: 100%;
       }
     }
+  }
 </style>

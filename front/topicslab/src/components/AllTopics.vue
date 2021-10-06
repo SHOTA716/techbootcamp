@@ -56,9 +56,6 @@ export default {
   .p-card.p-component {
     margin-bottom: 20px;
   }
-  .p-card-content {
-    .topic-date {
-      font-size: 80%;
-    }
-  }
+}
+
 </style>
