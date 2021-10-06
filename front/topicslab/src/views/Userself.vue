@@ -1,14 +1,26 @@
 <template>
   <div>
     <Card>
-      <template #title>
+       <template #title>
         マイページ
       </template>
       <template #content>
+        <v-avatar
+         color="red"
+         size="56"
+        ></v-avatar>
         {{user.name}}
+        <TabView>
+          <TabPanel header="Topics">
+            {{topic.title}}
+          </TabPanel>
+          <TabPanel header="あなたのコメント">
+            comment
+          </TabPanel>
+        </TabView>
+      <Button label="トピック作成" v-on:click="toNewTopic" />
       </template>
       <template #footer>
-        <Button label="トピック作成" v-on:click="toNewTopic" />
         <Button label="ログアウト" class="p-button-warning" v-on:click="logout" />
         <Button label="退会" class="p-button-danger" v-on:click="withdraw" />
       </template>
