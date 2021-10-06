@@ -89,7 +89,9 @@ export default {
       }
     }
   }
+
   span{
     color:#ff0000;
   }
+
 </style>

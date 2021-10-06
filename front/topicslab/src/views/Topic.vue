@@ -88,4 +88,5 @@ export default {
   Button{
     margin-top: 2%;
   }
+
 </style>
