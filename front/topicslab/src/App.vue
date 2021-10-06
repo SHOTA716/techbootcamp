@@ -9,7 +9,7 @@
     </template>
   </div>
   <div class="content">
-    <router-view/>
+    <router-view></router-view>
   </div>
   <p><small>&copy; 2021 topics lab</small></p>
 </template>

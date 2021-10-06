@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Card>
+    <Card >
       <template #content>
         {{user.name}}
       </template>
