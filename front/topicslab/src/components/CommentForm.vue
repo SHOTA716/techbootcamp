@@ -71,4 +71,5 @@ export default {
   display: block;
   width: 100%;
 }
+
 </style>
