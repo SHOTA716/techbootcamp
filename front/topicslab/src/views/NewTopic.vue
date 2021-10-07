@@ -1,4 +1,5 @@
 <template>
+<div>
   <Card>
     <template #title>
       新しいTopicを投稿しよう
@@ -21,17 +22,30 @@
       </div>
     </template>
   </Card>
+  <!--ダイアログ表示-->
+  <Dialog header="エラー" v-model:visible="displayBasic" :style="{width: '50vw'}">
+    {{messages.submit}}
+    <template #footer>
+      <Button label="はい" icon="pi pi-check" @click="closeBasic" autofocus />
+    </template>
+  </Dialog>
+</div>
 </template>
 
 <script>
 import axios from '@/supports/axios'
+import Dialog from 'primevue/dialog'
 
 export default {
   name: 'NewTopic',
+  components: {
+    Dialog
+  },
   data () {
     return {
       title: '',
       body: '',
+      displayBasic: false,
       messages: {
         submit: '',
         title: '',
@@ -72,12 +86,18 @@ export default {
             })
             .catch((err) => {
               console.log(err)
+              this.displayBasic = true
               this.messages.submit = '送信に失敗しました。'
             })
         })
         .catch((err) => {
-          alert(err)
+          console.log(err)
+          this.displayBasic = true
+          this.messages.submit = '送信に失敗しました。'
         })
+    },
+    closeBasic () {
+      this.displayBasic = false
     }
   }
 }

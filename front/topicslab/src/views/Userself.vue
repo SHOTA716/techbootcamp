@@ -1,15 +1,25 @@
 <template>
   <div>
     <Card>
-       <template #title>
+      <template #title>
         マイページ
       </template>
       <template #content>
-        {{user.name}}
+        <div v-if="user !== null">
+          {{user.name}}
+        </div>
+        <div v-else>
+          <Skeleton />
+        </div>
          <TabView>
           <TabPanel header="Topics">
             <div v-for="(topic,key) in user.topics" :key="key">
-              {{topic.title}}
+              <div v-if="user !== null">
+               {{topic.title}}
+              </div>
+              <div v-else>
+               <Skeleton />
+              </div>
               <span>
                 <router-link :to="`/topic/${topic.id}`">トピックへ移動</router-link>
               </span>
@@ -17,36 +27,71 @@
           </TabPanel>
           <TabPanel header="あなたのコメント">
             <div v-for="(comment,key) in user.comments" :key="key">
-              {{comment.body}}
+              <div v-if="user !== null">
+                {{comment.body}}
+               </div>
+               <div v-else>
+                <Skeleton />
+               </div>
               <span>
                 <router-link :to="`/topic/${comment.topic_id}`">トピックへ移動</router-link>
               </span>
-            </div>
           </TabPanel>
         </TabView>
-      <Button label="トピック作成" v-on:click="toNewTopic" />
+        <Button label="トピック作成" v-on:click="toNewTopic" />
       </template>
       <template #footer>
         <Button label="ログアウト" class="p-button-warning" v-on:click="logout" />
         <Button label="退会" class="p-button-danger" v-on:click="withdraw" />
       </template>
     </Card>
+    <!--ダイアログ表示-->
+    <Dialog header="エラー" v-model:visible="displayBasic" :style="{width: '50vw'}">
+      {{messages.logout}}
+      <template #footer>
+        <Button label="はい" icon="pi pi-check" @click="closeBasic" autofocus />
+      </template>
+    </Dialog>
+    <!--ダイアログ表示-->
+    <Dialog header="エラー" v-model:visible="displayBasic" :style="{width: '50vw'}">
+      {{messages.withdraw}}
+      <template #footer>
+        <Button label="はい" icon="pi pi-check" @click="closeBasic" autofocus />
+      </template>
+    </Dialog>
+    <!--ダイアログ表示-->
+    <Dialog header="エラー" v-model:visible="displayBasic" :style="{width: '50vw'}">
+      {{messages.connect}}
+      <template #footer>
+        <Button label="はい" icon="pi pi-check" @click="closeBasic" autofocus />
+      </template>
+    </Dialog>
   </div>
 </template>
 <script>
 import axios from '@/supports/axios'
 import TabView from 'primevue/tabview'
 import TabPanel from 'primevue/tabpanel'
+import Skeleton from 'primevue/skeleton'
+import Dialog from 'primevue/dialog'
 
 export default {
   name: 'Userself',
   components: {
     TabView,
-    TabPanel
+    TabPanel,
+    Skeleton,
+    Dialog
   },
   data () {
     return {
-      user: {}
+      user: {},
+      displayBasic: false,
+      messages: {
+        logout: '',
+        withdrow: '',
+        connect: ''
+      }
     }
   },
   mounted () {
@@ -72,10 +117,14 @@ export default {
             })
             .catch(err => {
               console.log(err)
+              this.displayBasic = true
+              this.messages.logout = 'ログアウトできませんでした。'
             })
         })
         .catch((err) => {
-          alert(err)
+          console.log(err)
+          this.displayBasic = true
+          this.messages.logout = 'ログアウトできませんでした。'
         })
     },
     withdraw () {
@@ -89,10 +138,14 @@ export default {
             })
             .catch(err => {
               console.log(err)
+              this.displayBasic = true
+              this.messages.withdraw = '退会できませんでした。'
             })
         })
         .catch((err) => {
-          alert(err)
+          console.log(err)
+          this.displayBasic = true
+          this.messages.withdraw = '退会できませんでした。'
         })
     },
     getUser () {
@@ -108,8 +161,13 @@ export default {
             })
         })
         .catch((err) => {
-          alert(err)
+          console.log(err)
+          this.displayBasic = true
+          this.messages.connect = '接続に失敗しました。'
         })
+    },
+    closeBasic () {
+      this.displayBasic = false
     }
   }
 }
