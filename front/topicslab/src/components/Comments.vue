@@ -3,7 +3,7 @@
     <Fieldset v-for="comment in comments" :key="comment.id">
       <template #legend>
         <span>
-          <router-link :to="`/user/${comment.user_id}`">{{comment.user.name}}</router-link>
+          <router-link style="text-decoration:none;" :to="`/user/${comment.user_id}`">{{comment.user.name}}</router-link>
         </span>
       </template>
       <div class="comment-text">
