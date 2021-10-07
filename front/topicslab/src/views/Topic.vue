@@ -19,6 +19,10 @@
         <Button label="いいね" icon="pi pi-heart" iconPos="right" />
       </template>
       <template #footer>
+        <span v-if="user === null">
+          退会済みユーザ
+        </span>
+        <span v-else>
         <div v-if="user !== null">
           <span>
             <router-link :to="`/user/${user.id}`">{{user.name}}</router-link>
@@ -27,8 +31,6 @@
         <div v-else>
           <Skeleton />
         </div>
-        <span>
-          <router-link style="text-decoration:none;" :to="`/user/${user.id}`">{{user.name}}</router-link>
         </span>
       </template>
     </Card>

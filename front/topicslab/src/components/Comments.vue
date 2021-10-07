@@ -2,8 +2,11 @@
   <div>
     <Fieldset v-for="comment in comments" :key="comment.id">
       <template #legend>
-        <span>
-          <router-link style="text-decoration:none;" :to="`/user/${comment.user_id}`">{{comment.user.name}}</router-link>
+        <span v-if="comment.user === null">
+          退会済みユーザー
+        </span>
+        <span v-else>
+          <router-link :to="`/user/${comment.user_id}`">{{comment.user.name}}</router-link>
         </span>
       </template>
       <div class="comment-text">

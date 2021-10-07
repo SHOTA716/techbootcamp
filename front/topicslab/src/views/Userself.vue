@@ -11,22 +11,31 @@
         <div v-else>
           <Skeleton />
         </div>
-        <TabView>
+         <TabView>
           <TabPanel header="Topics">
-            <div v-if="user !== null">
-              {{user.topics}}
-            </div>
-            <div v-else>
-              <Skeleton />
+            <div v-for="(topic,key) in user.topics" :key="key">
+              <div v-if="user !== null">
+               {{topic.title}}
+              </div>
+              <div v-else>
+               <Skeleton />
+              </div>
+              <span>
+                <router-link :to="`/topic/${topic.id}`">トピックへ移動</router-link>
+              </span>
             </div>
           </TabPanel>
-          <TabPanel header="あなたのコメント" v-if="user !== null">
-            <div v-if="user !== null">
-              {{user.comments}}
-            </div>
-            <div v-else>
-              <Skeleton />
-            </div>
+          <TabPanel header="あなたのコメント">
+            <div v-for="(comment,key) in user.comments" :key="key">
+              <div v-if="user !== null">
+                {{comment.body}}
+               </div>
+               <div v-else>
+                <Skeleton />
+               </div>
+              <span>
+                <router-link :to="`/topic/${comment.topic_id}`">トピックへ移動</router-link>
+              </span>
           </TabPanel>
         </TabView>
         <Button label="トピック作成" v-on:click="toNewTopic" />
@@ -121,7 +130,7 @@ export default {
     withdraw () {
       axios.get('/sanctum/csrf-cookie')
         .then(() => {
-          axios.post('/api/logout')
+          axios.get('/api/Withdrawal')
             .then(res => {
               console.log(res)
               localStorage.setItem('authenticated', 'false')
