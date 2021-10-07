@@ -1,23 +1,36 @@
 <template>
   <div>
-    <Card >
+    <Card>
       <template #content>
         {{user.name}}
         {{user.comments}}
       </template>
     </Card>
+    <!--ダイアログ表示-->
+    <Dialog header="エラー" v-model:visible="displayBasic" :style="{width: '50vw'}">
+      {{message}}
+      <template #footer>
+        <Button label="はい" icon="pi pi-check" @click="closeBasic" autofocus />
+      </template>
+    </Dialog>
   </div>
 </template>
 
 <script>
 import axios from '@/supports/axios'
+import Dialog from 'primevue/dialog'
 
 export default {
   name: 'user',
+  components: {
+    Dialog
+  },
   data () {
     return {
       id: null,
-      user: {}
+      displayBasic: false,
+      user: {},
+      message: ''
     }
   },
   mounted () {
@@ -47,11 +60,18 @@ export default {
             })
             .catch((err) => {
               console.log(err)
+              this.displayBasic = true
+              this.message = '接続に失敗しました。'
             })
         })
         .catch((err) => {
-          alert(err)
+          console.log(err)
+          this.displayBasic = true
+          this.message = '接続に失敗しました。'
         })
+    },
+    closeBasic () {
+      this.displayBasic = false
     }
   }
 }

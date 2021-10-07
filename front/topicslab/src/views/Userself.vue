@@ -21,22 +21,51 @@
         <Button label="退会" class="p-button-danger" v-on:click="withdraw" />
       </template>
     </Card>
+    <!--ダイアログ表示-->
+    <Dialog header="エラー" v-model:visible="displayBasic" :style="{width: '50vw'}">
+      {{messages.logout}}
+      <template #footer>
+        <Button label="はい" icon="pi pi-check" @click="closeBasic" autofocus />
+      </template>
+    </Dialog>
+    <!--ダイアログ表示-->
+    <Dialog header="エラー" v-model:visible="displayBasic" :style="{width: '50vw'}">
+      {{messages.withdraw}}
+      <template #footer>
+        <Button label="はい" icon="pi pi-check" @click="closeBasic" autofocus />
+      </template>
+    </Dialog>
+    <!--ダイアログ表示-->
+    <Dialog header="エラー" v-model:visible="displayBasic" :style="{width: '50vw'}">
+      {{messages.connect}}
+      <template #footer>
+        <Button label="はい" icon="pi pi-check" @click="closeBasic" autofocus />
+      </template>
+    </Dialog>
   </div>
 </template>
 <script>
 import axios from '@/supports/axios'
 import TabView from 'primevue/tabview'
 import TabPanel from 'primevue/tabpanel'
+import Dialog from 'primevue/dialog'
 
 export default {
   name: 'Userself',
   components: {
     TabView,
-    TabPanel
+    TabPanel,
+    Dialog
   },
   data () {
     return {
-      user: {}
+      user: {},
+      displayBasic: false,
+      messages: {
+        logout: '',
+        withdrow: '',
+        connect: ''
+      }
     }
   },
   mounted () {
@@ -62,10 +91,14 @@ export default {
             })
             .catch(err => {
               console.log(err)
+              this.displayBasic = true
+              this.messages.logout = 'ログアウトできませんでした。'
             })
         })
         .catch((err) => {
-          alert(err)
+          console.log(err)
+          this.displayBasic = true
+          this.messages.logout = 'ログアウトできませんでした。'
         })
     },
     withdraw () {
@@ -79,10 +112,14 @@ export default {
             })
             .catch(err => {
               console.log(err)
+              this.displayBasic = true
+              this.messages.withdraw = '退会できませんでした。'
             })
         })
         .catch((err) => {
-          alert(err)
+          console.log(err)
+          this.displayBasic = true
+          this.messages.withdraw = '退会できませんでした。'
         })
     },
     getUser () {
@@ -98,8 +135,13 @@ export default {
             })
         })
         .catch((err) => {
-          alert(err)
+          console.log(err)
+          this.displayBasic = true
+          this.messages.connect = '接続に失敗しました。'
         })
+    },
+    closeBasic () {
+      this.displayBasic = false
     }
   }
 }
