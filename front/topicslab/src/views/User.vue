@@ -1,9 +1,25 @@
 <template>
   <div>
-    <Card >
+    <Card>
       <template #content>
-        {{user.name}}
-        {{user.comments}}
+        <TabView>
+          <TabPanel header="Topics">
+            <div v-for="(topic,key) in user.topics" :key="key">
+              {{topic.title}}
+              <span>
+                <router-link :to="`/topic/${topic.id}`">トピックへ移動</router-link>
+              </span>
+            </div>
+          </TabPanel>
+          <TabPanel header="あなたのコメント">
+            <div v-for="(comment,key) in user.comments" :key="key">
+              {{comment.body}}
+              <span>
+                <router-link :to="`/topic/${comment.topic_id}`">トピックへ移動</router-link>
+              </span>
+            </div>
+          </TabPanel>
+        </TabView>
       </template>
     </Card>
   </div>
@@ -11,9 +27,15 @@
 
 <script>
 import axios from '@/supports/axios'
+import TabView from 'primevue/tabview'
+import TabPanel from 'primevue/tabpanel'
 
 export default {
   name: 'user',
+  components: {
+    TabView,
+    TabPanel
+  },
   data () {
     return {
       id: null,
