@@ -1,20 +1,35 @@
 <template>
   <div>
     <Card>
-       <template #title>
+      <template #title>
         マイページ
       </template>
       <template #content>
-        {{user.name}}
+        <div v-if="user !== null">
+          {{user.name}}
+        </div>
+        <div v-else>
+          <Skeleton />
+        </div>
         <TabView>
           <TabPanel header="Topics">
-            topic
+            <div v-if="user !== null">
+              topic
+            </div>
+            <div v-else>
+              <Skeleton />
+            </div>
           </TabPanel>
-          <TabPanel header="あなたのコメント">
-            comment
+          <TabPanel header="あなたのコメント" v-if="user !== null">
+            <div v-if="user !== null">
+              comment
+            </div>
+            <div v-else>
+              <Skeleton />
+            </div>
           </TabPanel>
         </TabView>
-      <Button label="トピック作成" v-on:click="toNewTopic" />
+        <Button label="トピック作成" v-on:click="toNewTopic" />
       </template>
       <template #footer>
         <Button label="ログアウト" class="p-button-warning" v-on:click="logout" />
@@ -27,12 +42,14 @@
 import axios from '@/supports/axios'
 import TabView from 'primevue/tabview'
 import TabPanel from 'primevue/tabpanel'
+import Skeleton from 'primevue/skeleton'
 
 export default {
   name: 'Userself',
   components: {
     TabView,
-    TabPanel
+    TabPanel,
+    Skeleton
   },
   data () {
     return {

@@ -1,19 +1,24 @@
 <template>
   <div>
-    <Card >
+    <Card>
       <template #content>
         {{user.name}}
         {{user.comments}}
       </template>
     </Card>
   </div>
+  <Skeleton />
 </template>
 
 <script>
 import axios from '@/supports/axios'
+import Skeleton from 'primevue/skeleton'
 
 export default {
   name: 'user',
+  components: {
+    Skeleton
+  },
   data () {
     return {
       id: null,
