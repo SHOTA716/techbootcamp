@@ -18,22 +18,36 @@
         <span>{{message}}</span>
         <div class="p-field">
           <Button icon="pi pi-check" label="ログイン" v-on:click="login" />
+          <router-link style="text-decoration:none;" to ="/Register">
+            <Button icon="pi pi-plus" label="新規登録" v-on:click="Register" />
+          </router-link>
         </div>
-        <router-link to ="/Register">新規登録はこちら</router-link>
       </template>
     </Card>
+    <!--ダイアログ表示-->
+    <Dialog header="エラー" v-model:visible="displayBasic" :style="{width: '50vw'}">
+      {{message}}
+      <template #footer>
+        <Button label="はい" icon="pi pi-check" @click="closeBasic" autofocus />
+      </template>
+    </Dialog>
   </div>
 </template>
 
 <script>
 import axios from '@/supports/axios'
+import Dialog from 'primevue/dialog'
 
 export default {
   name: 'Login',
+  components: {
+    Dialog
+  },
   data () {
     return {
       email: '',
       password: '',
+      displayBasic: false,
       error: false,
       message: ''
     }
@@ -57,12 +71,18 @@ export default {
             })
             .catch((err) => {
               console.log(err)
+              this.displayBasic = true
               this.message = 'ログインに失敗しました。'
             })
         })
         .catch((err) => {
-          alert(err)
+          console.log(err)
+          this.displayBasic = true
+          this.message = 'ログインに失敗しました。'
         })
+    },
+    closeBasic () {
+      this.displayBasic = false
     }
   }
 }
@@ -91,7 +111,6 @@ export default {
     }
   }
 
-}
 span{
   color:#ff0000;
 }

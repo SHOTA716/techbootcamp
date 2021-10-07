@@ -25,7 +25,6 @@ import router from './router'
 const app = createApp(App).use(router)
 app.mount('#app')
 app.use(PrimeVue)
-
 app.component('Card', Card)
 app.component('Button', Button)
 app.component('InputText', InputText)
