@@ -1,8 +1,25 @@
 <template>
-  <div>
+  <div example1>
     <Card >
       <template #content>
         {{user.name}}
+        <TabView>
+          <TabPanel header="Topics">
+            {{user.topics}}
+          </TabPanel>
+          <TabPanel header="コメント">
+            <Fieldset v-for="comment in comments" :key="comment.id">
+              <template #legend>
+                <span>
+                  {{user.comments}}
+                </span>
+              </template>
+              <div class="comment-text">
+                {{comment.body}}
+              </div>
+            </Fieldset>
+          </TabPanel>
+        </TabView>
       </template>
     </Card>
   </div>
@@ -10,9 +27,15 @@
 
 <script>
 import axios from '@/supports/axios'
+import TabView from 'primevue/tabview'
+import TabPanel from 'primevue/tabpanel'
 
 export default {
   name: 'user',
+  components: {
+    TabView,
+    TabPanel
+  },
   data () {
     return {
       id: null,

@@ -6,6 +6,20 @@
       </template>
       <template #content>
         {{user.name}}
+        <!-- <tr v-for="(userprof, index) in allTasks" v-bind:key="userprof.id">
+          <td>
+            <div v-if="!isEditing[index]">
+              <span>{{ userprof.body }}</span>
+            </div>
+            <form v-if="isEditing[index]" @submit.prevent="editTask(index, task)">
+              <input type="text" :value="userprof.body" :ref="userprof.id">
+              <div>
+                <button type="submit">保存</button>
+                <button type="button" @click="isEditing[index] = false">キャンセル</button>
+              </div>
+            </form>
+          </td>
+       </tr> -->
         <Textarea v-model="value" rows="5" cols="30" placeholder="自己紹介を追加"/>
         <Button label="プロフィールを公開" v-on:click="submit" />
         <TabView>
@@ -54,6 +68,11 @@ export default {
     this.getUser()
   },
   methods: {
+    async editTask (key, task) {
+      task.body = this.$refs[task.id][0].value
+      await this.$store.dispatch('userprof/edit', task)
+      this.$set(this.isEditing, key, false)
+    },
     toNewTopic () {
       this.$router.push('topic')
     },

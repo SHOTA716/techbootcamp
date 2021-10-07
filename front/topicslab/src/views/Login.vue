@@ -90,10 +90,8 @@ export default {
       }
     }
   }
-
-}
-span{
-  color:#ff0000;
-}
+  span{
+    color:#ff0000;
+  }
 
 </style>
