@@ -14,15 +14,17 @@
       </template>
     </Dialog>
   </div>
+  <Skeleton />
 </template>
 
 <script>
 import axios from '@/supports/axios'
+import Skeleton from 'primevue/skeleton'
 import Dialog from 'primevue/dialog'
-
 export default {
   name: 'user',
   components: {
+    Skeleton,
     Dialog
   },
   data () {

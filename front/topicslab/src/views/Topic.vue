@@ -2,15 +2,31 @@
   <div>
     <Card>
       <template #title>
-        {{topic.title}}
+        <div v-if="topic !== null">
+          {{topic.title}}
+        </div>
+        <div v-else>
+          <Skeleton />
+        </div>
       </template>
       <template #content>
-        <div class="body-text">
+        <div class="body-text" v-if="topic !== null">
           {{topic.body}}
+        </div>
+        <div v-else>
+          <Skeleton />
         </div>
         <Button label="いいね" icon="pi pi-heart" iconPos="right" />
       </template>
       <template #footer>
+        <div v-if="user !== null">
+          <span>
+            <router-link :to="`/user/${user.id}`">{{user.name}}</router-link>
+          </span>
+        </div>
+        <div v-else>
+          <Skeleton />
+        </div>
         <span>
           <router-link style="text-decoration:none;" :to="`/user/${user.id}`">{{user.name}}</router-link>
         </span>
@@ -32,6 +48,7 @@
 import axios from '@/supports/axios'
 import Comments from '@/components/Comments'
 import CommentForm from '@/components/CommentForm'
+import Skeleton from 'primevue/skeleton'
 import Dialog from 'primevue/dialog'
 
 export default {
@@ -39,6 +56,7 @@ export default {
   components: {
     Comments,
     CommentForm,
+    Skeleton,
     Dialog
   },
   data () {

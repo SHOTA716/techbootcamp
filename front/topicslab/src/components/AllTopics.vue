@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="topics !== null">
     <Card v-for="topic in topics" :key="topic.id">
         <template #content>
           <span class="topic-date">投稿日：{{moment(topic.created_at)}}</span>
@@ -18,16 +18,26 @@
       </template>
     </Dialog>
   </div>
+  <div v-else>
+    <Card>
+      <template #content>
+        <Skeleton />
+        <h2><Skeleton /></h2>
+      </template>
+    </Card>
+  </div>
 </template>
 
 <script>
 import axios from '@/supports/axios'
 import moment from 'moment'
+import Skeleton from 'primevue/skeleton'
 import Dialog from 'primevue/dialog'
 
 export default {
   name: 'AllTopics',
   components: {
+    Skeleton,
     Dialog
   },
   data () {
