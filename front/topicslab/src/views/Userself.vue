@@ -5,6 +5,8 @@
         マイページ
       </template>
       <template #content>
+        <Textarea v-model="value" rows="5" cols="30" placeholder="自己紹介を追加"/>
+        <Button label="プロフィールを公開" v-on:click="submit" />
         <div v-if="user !== null">
           {{user.name}}
         </div>
@@ -68,10 +70,12 @@
     </Dialog>
   </div>
 </template>
+
 <script>
 import axios from '@/supports/axios'
 import TabView from 'primevue/tabview'
 import TabPanel from 'primevue/tabpanel'
+import Textarea from 'primevue/textarea'
 import Skeleton from 'primevue/skeleton'
 import Dialog from 'primevue/dialog'
 
@@ -80,12 +84,14 @@ export default {
   components: {
     TabView,
     TabPanel,
+    Textarea,
     Skeleton,
     Dialog
   },
   data () {
     return {
       user: {},
+      value2: '',
       displayBasic: false,
       messages: {
         logout: '',
@@ -179,4 +185,35 @@ export default {
       margin-right: 10px;
     }
   }
+  .box {
+    background-color: var(--green-500);
+    color: #ffffff;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    border-radius: 4px;
+    margin-top: 1rem;
+    font-weight: bold;
+    box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
+}
+@keyframes my-fadein {
+    0%   { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@keyframes my-fadeout {
+    0%   { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+.my-fadein {
+    animation: my-fadein 150ms linear;
+}
+.my-fadeout {
+    animation: my-fadeout 150ms linear;
+}
 </style>
