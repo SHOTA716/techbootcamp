@@ -21,23 +21,35 @@
         </div>
         <span>{{message}}</span>
         <div class="p-field">
-          <Button icon="pi pi-check" label="登録する" v-on:click="register" />
+          <Button icon="pi pi-check-circle" label="登録する" v-on:click="register" />
         </div>
       </template>
     </Card>
+    <!--ダイアログ表示-->
+    <Dialog header="エラー" v-model:visible="displayBasic" :style="{width: '50vw'}">
+    {{message}}
+      <template #footer>
+        <Button label="はい" icon="pi pi-check" @click="closeBasic" autofocus />
+      </template>
+    </Dialog>
   </div>
 </template>
 
 <script>
 import axios from '@/supports/axios'
+import Dialog from 'primevue/dialog'
 
 export default {
   name: 'Register',
+  components: {
+    Dialog
+  },
   data () {
     return {
       name: '',
       email: '',
       password: '',
+      displayBasic: false,
       message: ''
     }
   },
@@ -47,7 +59,7 @@ export default {
       const email = this.email.trim()
       const password = this.password.trim()
       if (!name || !email || !password) {
-        this.message = '全て必須項目です。'
+        this.message = '※全て必須項目です。'
         return
       }
 
@@ -68,12 +80,18 @@ export default {
             })
             .catch((err) => {
               console.log(err)
+              this.displayBasic = true
               this.message = 'ユーザー登録に失敗しました。'
             })
         })
         .catch((err) => {
-          alert(err)
+          console.log(err)
+          this.displayBasic = true
+          this.message = 'ユーザー登録に失敗しました。'
         })
+    },
+    closeBasic () {
+      this.displayBasic = false
     }
   }
 }
@@ -100,5 +118,9 @@ export default {
         width: 100%;
       }
     }
+  }
+
+  span{
+    color:#ff0000;
   }
 </style>
