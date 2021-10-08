@@ -16,7 +16,7 @@
         <div v-else>
           <Skeleton />
         </div>
-        <Button label="いいね" icon="pi pi-heart" iconPos="right" />
+        <Button label="いいね" icon="pi pi-heart" iconPos="right" v-on:click="TopicLike"/>
       </template>
       <template #footer>
         <span v-if="user === null">

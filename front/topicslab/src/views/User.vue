@@ -1,35 +1,35 @@
 <template>
-  <div>
-    <Card>
-      <template #content>
-        <TabView>
-          <TabPanel header="Topics">
-            <div v-for="(topic,key) in user.topics" :key="key">
-              {{topic.title}}
-              <span>
-                <router-link :to="`/topic/${topic.id}`">トピックへ移動</router-link>
-              </span>
-            </div>
-          </TabPanel>
-          <TabPanel header="あなたのコメント">
-            <div v-for="(comment,key) in user.comments" :key="key">
-              {{comment.body}}
-              <span>
-                <router-link :to="`/topic/${comment.topic_id}`">トピックへ移動</router-link>
-              </span>
-            </div>
-          </TabPanel>
-        </TabView>
-      </template>
-    </Card>
-    <!--ダイアログ表示-->
-    <Dialog header="エラー" v-model:visible="displayBasic" :style="{width: '50vw'}">
-      {{message}}
-      <template #footer>
-        <Button label="はい" icon="pi pi-check" @click="closeBasic" autofocus />
-      </template>
-    </Dialog>
-  </div>
+    <div>
+      <Card>
+        <template #content>
+          <TabView>
+            <TabPanel header="Topics">
+              <div v-for="(topic,key) in user.topics" :key="key">
+                {{topic.title}}
+                <span>
+                  <router-link :to="`/topic/${topic.id}`">トピックへ移動</router-link>
+                </span>
+              </div>
+            </TabPanel>
+            <TabPanel header="あなたのコメント">
+              <div v-for="(comment,key) in user.comments" :key="key">
+                {{comment.body}}
+                <span>
+                  <router-link :to="`/topic/${comment.topic_id}`">トピックへ移動</router-link>
+                </span>
+              </div>
+            </TabPanel>
+          </TabView>
+        </template>
+      </Card>
+      <!--ダイアログ表示-->
+      <Dialog header="エラー" v-model:visible="displayBasic" :style="{width: '50vw'}">
+        {{message}}
+        <template #footer>
+          <Button label="はい" icon="pi pi-check" @click="closeBasic" autofocus />
+        </template>
+      </Dialog>
+    </div>
   <Skeleton />
 </template>
 
@@ -43,6 +43,8 @@ import Dialog from 'primevue/dialog'
 export default {
   name: 'user',
   components: {
+    TabView,
+    TabPanel,
     Skeleton,
     Dialog
   },

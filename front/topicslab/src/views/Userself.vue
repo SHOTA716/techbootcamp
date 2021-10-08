@@ -5,10 +5,12 @@
         マイページ
       </template>
       <template #content>
-        <Textarea v-model="value" rows="5" cols="30" placeholder="自己紹介を追加"/>
-        <Button label="プロフィールを公開" v-on:click="submit" />
+        <Textarea v-model="profile" :autoResize="true" rows="5" cols="58" placeholder="自己紹介を追加"/>
+        <div class="create-profile">
+          <Button label="プロフィールを公開" icon="pi pi-pencil" v-on:click="submit" />
+        </div>
         <div v-if="user !== null">
-          {{user.name}}
+          {{user.intro}}
         </div>
         <div v-else>
           <Skeleton />
@@ -17,34 +19,45 @@
           <TabPanel header="Topics">
             <div v-for="(topic,key) in user.topics" :key="key">
               <div v-if="user !== null">
-               {{topic.title}}
+                <div class="topic-title">
+                  {{topic.title}}
+                  <span>
+                    <router-link :to="`/topic/${topic.id}`">トピックへ移動</router-link>
+                  </span>
+                </div>
               </div>
               <div v-else>
                <Skeleton />
               </div>
-              <span>
-                <router-link :to="`/topic/${topic.id}`">トピックへ移動</router-link>
-              </span>
             </div>
           </TabPanel>
           <TabPanel header="あなたのコメント">
             <div v-for="(comment,key) in user.comments" :key="key">
               <div v-if="user !== null">
+                <div class="comments-body">
                 {{comment.body}}
+                <div class="fortopic">
+                  <router-link :to="`/topic/${comment.topic_id}`">
+                  <Button label="トピックへ移動" class="p-button-success"><i class="pi pi-external-link"></i>トピックへ移動</Button>
+                  </router-link>
+                </div>
+                </div>
                </div>
                <div v-else>
                 <Skeleton />
                </div>
-              <span>
-                <router-link :to="`/topic/${comment.topic_id}`">トピックへ移動</router-link>
-              </span>
+              </div>
           </TabPanel>
         </TabView>
-        <Button label="トピック作成" v-on:click="toNewTopic" />
+        <div class="create-topic">
+          <Button class="createTopic" label="トピック作成" icon="pi pi-plus" v-on:click="toNewTopic" />
+        </div>
       </template>
       <template #footer>
-        <Button label="ログアウト" class="p-button-warning" v-on:click="logout" />
-        <Button label="退会" class="p-button-danger" v-on:click="withdraw" />
+        <div class="logout">
+          <Button label="ログアウト" icon="pi pi-sign-out" class="p-button-warning" v-on:click="logout" />
+          <Button label="退会" icon="pi pi-trash" class="p-button-danger" v-on:click="withdraw" />
+        </div>
       </template>
     </Card>
     <!--ダイアログ表示-->
@@ -96,6 +109,8 @@ export default {
       messages: {
         logout: '',
         withdrow: '',
+        profile: '',
+        submit: '',
         connect: ''
       }
     }
@@ -110,7 +125,38 @@ export default {
   },
   methods: {
     toNewTopic () {
-      this.$router.push('topic')
+      this.$router.push('user')
+    },
+    submit () {
+      const profile = this.profile.trim()
+      if (!profile) {
+        this.messages.submit = '未記入(空白のみ)は送信できません。'
+        return
+      }
+
+      axios.get('/sanctum/csrf-cookie')
+        .then(() => {
+          axios.post('/api/profile', {
+            profile: this.profile
+          })
+            .then((res) => {
+              if (res.status === 201) {
+                this.$emit('sentComment', res.data)
+              } else {
+                this.messages.connect = '送信に失敗しました。'
+              }
+            })
+            .catch((err) => {
+              console.log(err)
+              this.displayBasic = true
+              this.messages.connect = '送信に失敗しました。'
+            })
+        })
+        .catch((err) => {
+          console.log(err)
+          this.displayBasic = true
+          this.messages.connect = '送信に失敗しました。'
+        })
     },
     logout () {
       axios.get('/sanctum/csrf-cookie')
@@ -180,11 +226,56 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+a {
+  text-decoration: none;
+}
+
+.pi {
+  padding-right: 5px;
+}
+
   .p-card-footer {
     .p-button {
       margin-right: 10px;
+      border-radius: 25px;
     }
   }
+
+  .p-card-content {
+    .p-button {
+      border-radius: 10px;
+    }
+  }
+  
+  .fortopic {
+    text-align: right;
+    margin-top: 15px;
+  }
+
+  .topic-title, .comments-body {
+    border:1px solid #f5f5f5;
+    border-radius: 10px;
+    padding: 10px 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 3px 7px 0 rgba(0, 0, 0, .3);
+  }
+
+  .create-topic {
+    text-align: center;
+  }
+
+.create-profile {
+  text-align: right;
+  margin-top: 10px;
+}
+
+textarea {
+  border-radius: 10px;
+}
+
+.logout {
+  text-align: right;
+}
   .box {
     background-color: var(--green-500);
     color: #ffffff;
