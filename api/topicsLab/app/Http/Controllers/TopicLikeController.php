@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Http\Controllers;
+
 use App\Models\Topic;
 use App\Models\POST;
 use App\Models\TopicLike;

@@ -16,7 +16,9 @@
         </div>
         <div v-if="introEdit==false">
           {{user.intro}}
-          <Button type="button" v-on:click="introEdit = true">編集</button>
+          <div class="editBtn" style="text-align:right">
+            <Button type="button" v-on:click="introEdit = true">編集</button>
+          </div>
         </div>
         <div v-if="introEdit==true">
          <Textarea v-model="profile" rows="5" cols="60" placeholder="自己紹介を追加"/>
@@ -32,7 +34,7 @@
           </div>
         </div>
          <TabView>
-          <TabPanel header="Topics">
+          <TabPanel header="投稿">
             <div v-if="user.topics !== undefined">
               <div v-for="(topic,key) in user.topics" :key="key">
                 <div class="topic-title">
