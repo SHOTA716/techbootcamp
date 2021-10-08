@@ -78,4 +78,12 @@ p{
 .p-tabview .p-tabview-nav li{
     flex : 1;
 }
+
+.topic-title, .comments-body {
+    border:1px solid #f5f5f5;
+    border-radius: 10px;
+    padding: 10px 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 3px 7px 0 rgba(0, 0, 0, .3);
+  }
 </style>

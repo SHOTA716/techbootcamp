@@ -26,7 +26,7 @@
               <Button type="button" v-on:click="introEdit = false">キャンセル</button>
             </div>
             <div v-else>
-              <Button label="プロフィールを変更" class="margin-prof" v-on:click="submit" />
+                <Button label="プロフィールを変更" class="margin-prof" v-on:click="submit"/>
               <Button type="button" v-on:click="introEdit = false">キャンセル</button>
             </div>
           </div>
@@ -35,12 +35,14 @@
           <TabPanel header="Topics">
             <div v-if="user.topics !== undefined">
               <div v-for="(topic,key) in user.topics" :key="key">
-                {{topic.title}}
-                <div class="fortopic">
-                    <router-link　style="text-decoration:none;" :to="`/topic/${topic.id}`">
+                <div class="topic-title">
+                  {{topic.title}}
+                  <div class="fortopic">
+                    <router-link style="text-decoration:none;" :to="`/topic/${topic.id}`">
                       <Button label="トピックへ移動" class="p-button-success"><i class="pi pi-external-link"></i>トピックへ移動</Button>
                     </router-link>
                   </div>
+                </div>
               </div>
             </div>
             <div v-else>
@@ -50,11 +52,13 @@
           <TabPanel header="あなたのコメント">
             <div v-if="user.comments !== undefined">
               <div v-for="(comment,key) in user.comments" :key="key">
-                {{comment.body}}
+                <div class="comments-body">
+                  {{comment.body}}
                 <div class="fortopic">
-                  <router-link　style="text-decoration:none;" :to="`/topic/${comment.topic_id}`">
+                  <router-link style="text-decoration:none;" :to="`/topic/${comment.topic_id}`">
                   <Button label="トピックへ移動" class="p-button-success"><i class="pi pi-external-link"></i>トピックへ移動</Button>
                   </router-link>
+                </div>
                 </div>
               </div>
             </div>
@@ -251,43 +255,46 @@ a {
   padding-right: 5px;
 }
 
-  .p-card-footer {
-    .p-button {
-      margin-right: 10px;
-      border-radius: 25px;
-    }
-  }
-  .margin-prof{
+.p-card-footer {
+  .p-button {
     margin-right: 10px;
+    border-radius: 25px;
   }
-  .p-card-content {
-    .p-button {
-      border-radius: 10px;
-    }
-  }
+}
 
-  .avater_icon{
-    margin: 0 10px 30px 5px;
-  }
-  .my_name{
-    font-size: 2rem;
-  }
-  .fortopic {
-    text-align: right;
-    margin-top: 15px;
-  }
+.margin-prof{
+  margin-right: 10px;
+}
 
-  .topic-title, .comments-body {
-    border:1px solid #f5f5f5;
+.p-card-content {
+  .p-button {
     border-radius: 10px;
-    padding: 10px 10px;
-    margin-bottom: 20px;
-    box-shadow: 0 3px 7px 0 rgba(0, 0, 0, .3);
   }
+}
 
-  .create-topic {
-    text-align: center;
-  }
+.avater_icon{
+   margin: 0 10px 30px 5px;
+}
+
+.my_name{
+  font-size: 2rem;
+}
+.fortopic {
+  text-align: right;
+  margin-top: 15px;
+}
+
+.topic-title, .comments-body {
+  border:1px solid #f5f5f5;
+  border-radius: 10px;
+  padding: 10px 10px;
+  margin-bottom: 20px;
+  box-shadow: 0 3px 7px 0 rgba(0, 0, 0, .3);
+}
+
+.create-topic {
+  text-align: center;
+}
 
 .create-profile {
   text-align: right;
@@ -301,6 +308,7 @@ textarea {
 .logout {
   text-align: right;
 }
+
   .box {
     background-color: var(--green-500);
     color: #ffffff;
@@ -316,6 +324,7 @@ textarea {
     font-weight: bold;
     box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
 }
+
 @keyframes my-fadein {
     0%   { opacity: 0; }
     100% { opacity: 1; }
