@@ -1,42 +1,89 @@
 <template>
   <div>
     <Card>
-       <template #title>
+      <template #title>
         マイページ
       </template>
       <template #content>
-        {{user.name}}
-        <!-- <tr v-for="(userprof, index) in allTasks" v-bind:key="userprof.id">
-          <td>
-            <div v-if="!isEditing[index]">
-              <span>{{ userprof.body }}</span>
+        <div v-if="user !== null">
+          {{user.name}}
+        </div>
+        <div v-else>
+          <Skeleton />
+        </div>
+        <div v-if="introEdit==false">
+          {{user.name}}
+          <Button type="button" v-on:click="introEdit = true">編集</button>
+        </div>
+        <div v-if="introEdit==true">
+         <Textarea v-model="value" rows="5" cols="60" placeholder="自己紹介を追加"/>
+          <div class="profbutton">
+            <div v-if="intro==false">
+              <Button label="プロフィールを公開" class="margin-prof" v-on:click="submit" />
+              <Button type="button" v-on:click="introEdit = false">キャンセル</button>
             </div>
-            <form v-if="isEditing[index]" @submit.prevent="editTask(index, task)">
-              <input type="text" :value="userprof.body" :ref="userprof.id">
-              <div>
-                <button type="submit">保存</button>
-                <button type="button" @click="isEditing[index] = false">キャンセル</button>
-              </div>
-            </form>
-          </td>
-       </tr> -->
-        <Textarea v-model="value" rows="5" cols="30" placeholder="自己紹介を追加"/>
-        <Button label="プロフィールを公開" v-on:click="submit" />
-        <TabView>
+            <div v-else>
+              <Button label="プロフィールを追加" class="margin-prof" v-on:click="submit" />
+              <Button type="button" v-on:click="introEdit = false">キャンセル</button>
+            </div>
+          </div>
+        </div>
+         <TabView>
           <TabPanel header="Topics">
-            {{user.topics}}
+            <div v-for="(topic,key) in user.topics" :key="key">
+              <div v-if="user !== null">
+               {{topic.title}}
+              </div>
+              <div v-else>
+               <Skeleton />
+              </div>
+              <span>
+                <router-link :to="`/topic/${topic.id}`">トピックへ移動</router-link>
+              </span>
+            </div>
           </TabPanel>
           <TabPanel header="あなたのコメント">
-            {{user.comments}}
+            <div v-for="(comment,key) in user.comments" :key="key">
+              <div v-if="user !== null">
+                {{comment.body}}
+               </div>
+               <div v-else>
+                <Skeleton />
+               </div>
+              <span>
+                <router-link :to="`/topic/${comment.topic_id}`">トピックへ移動</router-link>
+              </span>
+            </div>
           </TabPanel>
         </TabView>
-      <Button label="トピック作成" v-on:click="toNewTopic" />
+        <Button label="トピック作成" v-on:click="toNewTopic" />
       </template>
       <template #footer>
         <Button label="ログアウト" class="p-button-warning" v-on:click="logout" />
         <Button label="退会" class="p-button-danger" v-on:click="withdraw" />
       </template>
     </Card>
+    <!--ダイアログ表示-->
+    <Dialog header="エラー" v-model:visible="displayBasic" :style="{width: '50vw'}">
+      {{messages.logout}}
+      <template #footer>
+        <Button label="はい" icon="pi pi-check" @click="closeBasic" autofocus />
+      </template>
+    </Dialog>
+    <!--ダイアログ表示-->
+    <Dialog header="エラー" v-model:visible="displayBasic" :style="{width: '50vw'}">
+      {{messages.withdraw}}
+      <template #footer>
+        <Button label="はい" icon="pi pi-check" @click="closeBasic" autofocus />
+      </template>
+    </Dialog>
+    <!--ダイアログ表示-->
+    <Dialog header="エラー" v-model:visible="displayBasic" :style="{width: '50vw'}">
+      {{messages.connect}}
+      <template #footer>
+        <Button label="はい" icon="pi pi-check" @click="closeBasic" autofocus />
+      </template>
+    </Dialog>
   </div>
 </template>
 
@@ -45,18 +92,30 @@ import axios from '@/supports/axios'
 import TabView from 'primevue/tabview'
 import TabPanel from 'primevue/tabpanel'
 import Textarea from 'primevue/textarea'
+import Skeleton from 'primevue/skeleton'
+import Dialog from 'primevue/dialog'
 
 export default {
   name: 'Userself',
   components: {
     TabView,
     TabPanel,
-    Textarea
+    Textarea,
+    Skeleton,
+    Dialog
   },
   data () {
     return {
       user: {},
-      value2: ''
+      value2: '',
+      displayBasic: false,
+      introEdit: false,
+      intro: false,
+      messages: {
+        logout: '',
+        withdrow: '',
+        connect: ''
+      }
     }
   },
   mounted () {
@@ -68,11 +127,6 @@ export default {
     this.getUser()
   },
   methods: {
-    async editTask (key, task) {
-      task.body = this.$refs[task.id][0].value
-      await this.$store.dispatch('userprof/edit', task)
-      this.$set(this.isEditing, key, false)
-    },
     toNewTopic () {
       this.$router.push('topic')
     },
@@ -87,19 +141,41 @@ export default {
             })
             .catch(err => {
               console.log(err)
+              this.displayBasic = true
+              this.messages.logout = 'ログアウトできませんでした。'
             })
         })
         .catch((err) => {
-          alert(err)
+          console.log(err)
+          this.displayBasic = true
+          this.messages.logout = 'ログアウトできませんでした。'
         })
     },
     withdraw () {
-      //
+      axios.get('/sanctum/csrf-cookie')
+        .then(() => {
+          axios.get('/api/Withdrawal')
+            .then(res => {
+              console.log(res)
+              localStorage.setItem('authenticated', 'false')
+              this.$router.push('/')
+            })
+            .catch(err => {
+              console.log(err)
+              this.displayBasic = true
+              this.messages.withdraw = '退会できませんでした。'
+            })
+        })
+        .catch((err) => {
+          console.log(err)
+          this.displayBasic = true
+          this.messages.withdraw = '退会できませんでした。'
+        })
     },
     getUser () {
       axios.get('/sanctum/csrf-cookie')
         .then(() => {
-          axios.get('/api/user')
+          axios.get('/api/mypage')
             .then((res) => {
               if (res.status === 200) {
                 this.user = res.data
@@ -109,8 +185,13 @@ export default {
             })
         })
         .catch((err) => {
-          alert(err)
+          console.log(err)
+          this.displayBasic = true
+          this.messages.connect = '接続に失敗しました。'
         })
+    },
+    closeBasic () {
+      this.displayBasic = false
     }
   }
 }
@@ -122,35 +203,13 @@ export default {
       margin-right: 10px;
     }
   }
-  .box {
-    background-color: var(--green-500);
-    color: #ffffff;
-    width: 100px;
-    height: 100px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    border-radius: 4px;
-    margin-top: 1rem;
-    font-weight: bold;
-    box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
-}
-@keyframes my-fadein {
-    0%   { opacity: 0; }
-    100% { opacity: 1; }
-}
-
-@keyframes my-fadeout {
-    0%   { opacity: 1; }
-    100% { opacity: 0; }
-}
-
-.my-fadein {
-    animation: my-fadein 150ms linear;
-}
-.my-fadeout {
-    animation: my-fadeout 150ms linear;
-}
+  .margin-prof{
+    margin-right: 10px;
+  }
+  // .profbutton{
+  //   float: right;
+  // }
+  // TabView{
+  //   margin-top: 600px;
+  // }
 </style>
