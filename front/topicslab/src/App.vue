@@ -74,4 +74,7 @@ body {
 p{
   text-align: center;
 }
+.p-tabview .p-tabview-nav li{
+    flex : 1;
+}
 </style>

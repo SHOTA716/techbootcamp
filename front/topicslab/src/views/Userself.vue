@@ -5,15 +5,28 @@
         マイページ
       </template>
       <template #content>
-        <Textarea v-model="profile" :autoResize="true" rows="5" cols="58" placeholder="自己紹介を追加"/>
-        <div class="create-profile">
-          <Button label="プロフィールを公開" icon="pi pi-pencil" v-on:click="submit" />
-        </div>
         <div v-if="user !== null">
-          {{user.intro}}
+          {{user.name}}
         </div>
         <div v-else>
           <Skeleton />
+        </div>
+        <div v-if="introEdit==false">
+          {{user.name}}
+          <Button type="button" v-on:click="introEdit = true">編集</button>
+        </div>
+        <div v-if="introEdit==true">
+         <Textarea v-model="value" rows="5" cols="60" placeholder="自己紹介を追加"/>
+          <div class="profbutton">
+            <div v-if="intro==false">
+              <Button label="プロフィールを公開" class="margin-prof" v-on:click="submit" />
+              <Button type="button" v-on:click="introEdit = false">キャンセル</button>
+            </div>
+            <div v-else>
+              <Button label="プロフィールを追加" class="margin-prof" v-on:click="submit" />
+              <Button type="button" v-on:click="introEdit = false">キャンセル</button>
+            </div>
+          </div>
         </div>
          <TabView>
           <TabPanel header="Topics">
@@ -31,6 +44,9 @@
               <div v-else>
                <Skeleton />
               </div>
+              <span>
+                <router-link :to="`/topic/${topic.id}`">トピックへ移動</router-link>
+              </span>
             </div>
           </TabPanel>
           <TabPanel header="あなたのコメント">
@@ -108,6 +124,8 @@ export default {
       user: {},
       value2: '',
       displayBasic: false,
+      introEdit: false,
+      intro: false,
       messages: {
         logout: '',
         withdrow: '',
@@ -242,6 +260,16 @@ a {
       border-radius: 25px;
     }
   }
+  .margin-prof{
+    margin-right: 10px;
+  }
+  
+  // .profbutton{
+  //   float: right;
+  // }
+  // TabView{
+  //   margin-top: 600px;
+  // }
 
   .p-card-content {
     .p-button {
