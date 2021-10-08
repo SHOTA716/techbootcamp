@@ -21,7 +21,7 @@
         </div>
         <span>{{message}}</span>
         <div class="p-field">
-          <Button icon="pi pi-check-circle" label="登録する" v-on:click="register" />
+          <Button icon="pi pi-check-circle" class="p-button-rounded" label="登録する" v-on:click="register" />
         </div>
       </template>
     </Card>
@@ -87,7 +87,7 @@ export default {
         .catch((err) => {
           console.log(err)
           this.displayBasic = true
-          this.message = 'ユーザー登録に失敗しました。'
+          this.message = '接続に失敗しました。'
         })
     },
     closeBasic () {

@@ -1,54 +1,49 @@
 <template>
-    <div>
-      <Card>
-        <template #content>
-          <TabView>
-            <TabPanel header="Topics">
+  <div>
+    <Card>
+      <template #content>
+        <TabView>
+          <TabPanel header="Topics">
+            <div v-if="user.topics !== undefined">
               <div v-for="(topic,key) in user.topics" :key="key">
-              <div v-if="user !== null">
-                <div class="topic-title">
-                  {{topic.title}}
-                  <div class="fortopic">
-                    <router-link :to="`/topic/${topic.id}`">
+                {{topic.title}}
+                <div class="fortopic">
+                    <router-link　style="text-decoration:none;" :to="`/topic/${topic.id}`">
                       <Button label="トピックへ移動" class="p-button-success"><i class="pi pi-external-link"></i>トピックへ移動</Button>
                     </router-link>
                   </div>
-                </div>
-              </div>
-              <div v-else>
-               <Skeleton />
               </div>
             </div>
-            </TabPanel>
-            <TabPanel header="あなたのコメント">
+            <div v-else>
+              <Skeleton />
+            </div>
+          </TabPanel>
+          <TabPanel header="あなたのコメント">
+            <div v-if="user.topics !== undefined">
               <div v-for="(comment,key) in user.comments" :key="key">
-              <div v-if="user !== null">
-                <div class="comments-body">
                 {{comment.body}}
                 <div class="fortopic">
-                  <router-link :to="`/topic/${comment.topic_id}`">
+                  <router-link　style="text-decoration:none;" :to="`/topic/${comment.topic_id}`">
                   <Button label="トピックへ移動" class="p-button-success"><i class="pi pi-external-link"></i>トピックへ移動</Button>
                   </router-link>
                 </div>
-                </div>
-               </div>
-               <div v-else>
-                <Skeleton />
-               </div>
               </div>
-            </TabPanel>
-          </TabView>
-        </template>
-      </Card>
-      <!--ダイアログ表示-->
-      <Dialog header="エラー" v-model:visible="displayBasic" :style="{width: '50vw'}">
-        {{message}}
-        <template #footer>
-          <Button label="はい" icon="pi pi-check" @click="closeBasic" autofocus />
-        </template>
-      </Dialog>
-    </div>
-  <Skeleton />
+            </div>
+            <div v-else>
+              <Skeleton />
+            </div>
+          </TabPanel>
+        </TabView>
+      </template>
+    </Card>
+    <!--ダイアログ表示-->
+    <Dialog header="エラー" v-model:visible="displayBasic" :style="{width: '50vw'}">
+      {{message}}
+      <template #footer>
+        <Button label="はい" icon="pi pi-check" @click="closeBasic" autofocus />
+      </template>
+    </Dialog>
+  </div>
 </template>
 
 <script>

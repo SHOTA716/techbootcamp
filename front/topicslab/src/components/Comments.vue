@@ -6,13 +6,13 @@
           退会済みユーザー
         </span>
         <span v-else>
-          <router-link :to="`/user/${comment.user_id}`">{{comment.user.name}}</router-link>
+          <router-link style="text-decoration:none;" :to="`/user/${comment.user_id}`">{{comment.user.name}}</router-link>
         </span>
       </template>
       <div class="comment-text">
         {{comment.body}}
       </div>
-      <Button label="いいね" icon="pi pi-heart" iconPos="right" />
+      <Button label="いいね" class="p-button-rounded p-button-danger" icon="pi pi-heart" iconPos="right" />
     </Fieldset>
   </div>
 </template>
@@ -35,5 +35,6 @@ export default {
 }
 Button{
   margin-top: 2%;
+  margin-left: 390px;
 }
 </style>

@@ -2,36 +2,42 @@
   <div>
     <Card>
       <template #title>
-        <div v-if="topic !== null">
+        <div v-if="topic.id !== undefined">
           {{topic.title}}
         </div>
         <div v-else>
-          <Skeleton />
+          <Skeleton width="523px" height="37px" />
         </div>
       </template>
       <template #content>
-        <div class="body-text" v-if="topic !== null">
+        <div class="user_name" v-if="topic.id !== undefined">
+          <span v-if="user === null">
+            退会済みユーザ
+          </span>
+          <span v-else>
+            <div v-if="user !== null">
+                <Avatar icon="pi pi-user" class="p-mr-2" size="large" shape="circle" />
+                <router-link class="user_link" style="text-decoration:none;" :to="`/user/${user.id}`">{{user.name}}</router-link>
+            </div>
+          </span>
+        </div>
+        <div v-else class="hide_name">
+          <Skeleton width="105px" height="48px" />
+        </div>
+        <div class="body-text" v-if="topic.id !== undefined">
           {{topic.body}}
         </div>
         <div v-else>
-          <Skeleton />
+          <Skeleton width="523px" height="40px" />
         </div>
-        <Button label="いいね" icon="pi pi-heart" iconPos="right" v-on:click="TopicLike"/>
       </template>
       <template #footer>
-        <span v-if="user === null">
-          退会済みユーザ
-        </span>
-        <span v-else>
-        <div v-if="user !== null">
-          <span>
-            <router-link :to="`/user/${user.id}`">{{user.name}}</router-link>
-          </span>
+        <div v-if="topic.id !== undefined">
+          <Button label="いいね" class="p-button-rounded p-button-danger" icon="pi pi-heart" iconPos="right" />
         </div>
         <div v-else>
-          <Skeleton />
+          <Skeleton class="nice_btn" width="106px" height="42px" />
         </div>
-        </span>
       </template>
     </Card>
     <Comments :comments="this.comments" />
@@ -52,6 +58,7 @@ import Comments from '@/components/Comments'
 import CommentForm from '@/components/CommentForm'
 import Skeleton from 'primevue/skeleton'
 import Dialog from 'primevue/dialog'
+import Avatar from 'primevue/avatar'
 
 export default {
   name: 'Topic',
@@ -59,7 +66,8 @@ export default {
     Comments,
     CommentForm,
     Skeleton,
-    Dialog
+    Dialog,
+    Avatar
   },
   data () {
     return {
@@ -156,6 +164,7 @@ export default {
 <style scoped>
 .body-text {
   white-space:pre-wrap;
+  margin: 80px 0 0 10px;
 }
 .p-card-footer span {
   text-align: right;
@@ -163,5 +172,23 @@ export default {
 }
 Button{
   margin-top: 2%;
+  margin-left: 407px;
+}
+.user_name{
+  float: left;
+}
+.user_link{
+  margin-left: 10px;
+}
+.hide_name{
+  float: left;
+  position: relative;
+  top: -20px;
+}
+.nice_btn{
+  float: right;
+  position: relative;
+  top: -30px;
+  left: -5px;
 }
 </style>
