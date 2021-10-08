@@ -26,7 +26,7 @@
               <Button type="button" v-on:click="introEdit = false">キャンセル</button>
             </div>
             <div v-else>
-                <Button label="プロフィールを変更" class="margin-prof" v-on:click="submit"/>
+              <Button label="プロフィールを変更" class="margin-prof" v-on:click="submit"/>
               <Button type="button" v-on:click="introEdit = false">キャンセル</button>
             </div>
           </div>
@@ -161,8 +161,9 @@ export default {
             profile: this.profile
           })
             .then((res) => {
-              if (res.status === 201) {
-                this.$emit('sentComment', res.data)
+              if (res.status === 200) {
+                this.user.intro = this.profile
+                this.introEdit = false
               } else {
                 this.messages.connect = '送信に失敗しました。'
               }
