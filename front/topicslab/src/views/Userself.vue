@@ -21,9 +21,11 @@
               <div v-if="user !== null">
                 <div class="topic-title">
                   {{topic.title}}
-                  <span>
-                    <router-link :to="`/topic/${topic.id}`">トピックへ移動</router-link>
-                  </span>
+                  <div class="fortopic">
+                    <router-link :to="`/topic/${topic_id}`">
+                      <Button label="トピックへ移動" class="p-button-success"><i class="pi pi-external-link"></i>トピックへ移動</Button>
+                    </router-link>
+                  </div>
                 </div>
               </div>
               <div v-else>
@@ -124,7 +126,7 @@ export default {
   },
   methods: {
     toNewTopic () {
-      this.$router.push('user')
+      this.$router.push('topic')
     },
     submit () {
       const profile = this.profile.trim()
