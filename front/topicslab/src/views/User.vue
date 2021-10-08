@@ -4,19 +4,29 @@
       <template #content>
         <TabView>
           <TabPanel header="Topics">
-            <div v-for="(topic,key) in user.topics" :key="key">
-              {{topic.title}}
-              <span>
-                <router-link :to="`/topic/${topic.id}`">トピックへ移動</router-link>
-              </span>
+            <div v-if="user.topics !== undefined">
+              <div v-for="(topic,key) in user.topics" :key="key">
+                {{topic.title}}
+                <span>
+                  <router-link :to="`/topic/${topic.id}`">トピックへ移動</router-link>
+                </span>
+              </div>
+            </div>
+            <div v-else>
+              <Skeleton />
             </div>
           </TabPanel>
           <TabPanel header="あなたのコメント">
-            <div v-for="(comment,key) in user.comments" :key="key">
-              {{comment.body}}
-              <span>
-                <router-link :to="`/topic/${comment.topic_id}`">トピックへ移動</router-link>
-              </span>
+            <div v-if="user.topics !== undefined">
+              <div v-for="(comment,key) in user.comments" :key="key">
+                {{comment.body}}
+                <span>
+                  <router-link :to="`/topic/${comment.topic_id}`">トピックへ移動</router-link>
+                </span>
+              </div>
+            </div>
+            <div v-else>
+              <Skeleton />
             </div>
           </TabPanel>
         </TabView>
@@ -30,7 +40,6 @@
       </template>
     </Dialog>
   </div>
-  <Skeleton />
 </template>
 
 <script>
@@ -43,6 +52,8 @@ import Dialog from 'primevue/dialog'
 export default {
   name: 'user',
   components: {
+    TabView,
+    TabPanel,
     Skeleton,
     Dialog
   },

@@ -7,7 +7,7 @@
           <p><span>{{messages.submit}}</span></p>
         </div>
         <div class="p-field">
-          <Button icon="pi pi-send" label="コメントする" v-on:click="submit" />
+          <Button icon="pi pi-send" class="p-button-rounded" label="コメントする" v-on:click="submit" />
         </div>
       </template>
     </Card>

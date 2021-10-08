@@ -63,7 +63,7 @@ body {
 
   a {
     font-weight: bold;
-    color: purple !important;
+    color: #eee !important;
 
     &.router-link-exact-active {
       color: #42b983;
@@ -73,5 +73,9 @@ body {
 
 p{
   text-align: center;
+}
+
+.p-tabview .p-tabview-nav li{
+    flex : 1;
 }
 </style>

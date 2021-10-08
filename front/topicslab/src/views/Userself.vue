@@ -5,37 +5,41 @@
         マイページ
       </template>
       <template #content>
-        <div v-if="user !== null">
-          {{user.name}}
+        <div v-if="user.id !== undefined">
+          <div class="my_name">
+            <Avatar icon="pi pi-user" class="p-mr-2 avater_icon" size="xlarge" shape="circle" />
+            {{user.name}}
+          </div>
         </div>
         <div v-else>
-          <Skeleton />
+          <Skeleton width="520px" height="94px" />
         </div>
          <TabView>
           <TabPanel header="Topics">
-            <div v-for="(topic,key) in user.topics" :key="key">
-              <div v-if="user !== null">
-               {{topic.title}}
+            <div v-if="user.topics !== undefined">
+              <div v-for="(topic,key) in user.topics" :key="key">
+                {{topic.title}}
+                <span>
+                  <router-link :to="`/topic/${topic.id}`">トピックへ移動</router-link>
+                </span>
               </div>
-              <div v-else>
-               <Skeleton />
-              </div>
-              <span>
-                <router-link :to="`/topic/${topic.id}`">トピックへ移動</router-link>
-              </span>
+            </div>
+            <div v-else>
+              <Skeleton />
             </div>
           </TabPanel>
           <TabPanel header="あなたのコメント">
-            <div v-for="(comment,key) in user.comments" :key="key">
-              <div v-if="user !== null">
+            <div v-if="user.comments !== undefined">
+              <div v-for="(comment,key) in user.comments" :key="key">
                 {{comment.body}}
-               </div>
-               <div v-else>
-                <Skeleton />
-               </div>
-              <span>
-                <router-link :to="`/topic/${comment.topic_id}`">トピックへ移動</router-link>
-              </span>
+                <span>
+                  <router-link :to="`/topic/${comment.topic_id}`">トピックへ移動</router-link>
+                </span>
+              </div>
+            </div>
+            <div v-else>
+              <Skeleton />
+            </div>
           </TabPanel>
         </TabView>
         <Button label="トピック作成" v-on:click="toNewTopic" />
@@ -74,6 +78,7 @@ import TabView from 'primevue/tabview'
 import TabPanel from 'primevue/tabpanel'
 import Skeleton from 'primevue/skeleton'
 import Dialog from 'primevue/dialog'
+import Avatar from 'primevue/avatar'
 
 export default {
   name: 'Userself',
@@ -81,7 +86,8 @@ export default {
     TabView,
     TabPanel,
     Skeleton,
-    Dialog
+    Dialog,
+    Avatar
   },
   data () {
     return {
@@ -178,5 +184,11 @@ export default {
     .p-button {
       margin-right: 10px;
     }
+  }
+  .avater_icon{
+    margin: 0 10px 30px 5px;
+  }
+  .my_name{
+    font-size: 2rem;
   }
 </style>

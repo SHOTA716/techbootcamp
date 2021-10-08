@@ -1,31 +1,34 @@
 <template>
-  <div v-if="topics !== null">
+<div>
+  <div v-if="topics.length !== 0">
     <Card v-for="topic in topics" :key="topic.id">
-        <template #content>
-          <span class="topic-date">投稿日：{{moment(topic.created_at)}}</span>
-          <h2>
-            <router-link style="text-decoration:none;" :to="`/topic/${topic.id}`">
-              {{topic.title}}
-            </router-link>
-          </h2>
-        </template>
-    </Card>
-    <!--ダイアログ表示-->
-    <Dialog header="エラー" v-model:visible="displayBasic" :style="{width: '50vw'}">
-      {{message}}
-      <template #footer>
-        <Button label="はい" icon="pi pi-check" @click="closeBasic" autofocus />
+      <template #content>
+        <span class="topic-date">投稿日：{{moment(topic.created_at)}}</span>
+        <h2>
+          <router-link style="text-decoration:none;" :to="`/topic/${topic.id}`">
+            {{topic.title}}
+          </router-link>
+        </h2>
       </template>
-    </Dialog>
+    </Card>
   </div>
   <div v-else>
     <Card>
       <template #content>
-        <Skeleton />
-        <h2><Skeleton /></h2>
+        <Skeleton class="ske-date" width="209px" height="21px"/>
+        <br>
+        <Skeleton class="ske-link" width="518px" height="37px"/>
       </template>
     </Card>
   </div>
+  <!--ダイアログ表示-->
+  <Dialog header="エラー" v-model:visible="displayBasic" :style="{width: '50vw'}">
+    {{message}}
+    <template #footer>
+      <Button label="はい" icon="pi pi-check" @click="closeBasic" autofocus />
+    </template>
+  </Dialog>
+</div>
 </template>
 
 <script>

@@ -17,9 +17,9 @@
         </div>
         <span>{{message}}</span>
         <div class="p-field">
-          <Button icon="pi pi-check" label="ログイン" v-on:click="login" />
-          <router-link style="text-decoration:none;" to ="/Register">
-            <Button icon="pi pi-plus" label="新規登録" v-on:click="Register" />
+          <Button icon="pi pi-check" class="p-button-rounded" label="ログイン" v-on:click="login" />
+          <router-link style="text-decoration:none;"  to ="/Register">
+            <Button icon="pi pi-plus" class="p-button-rounded" label="新規登録" v-on:click="Register" />
           </router-link>
         </div>
       </template>
@@ -78,7 +78,7 @@ export default {
         .catch((err) => {
           console.log(err)
           this.displayBasic = true
-          this.message = 'ログインに失敗しました。'
+          this.message = '接続に失敗しました。'
         })
     },
     closeBasic () {
