@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -41,6 +40,15 @@ class UserController extends Controller
         $user->password = Hash::make($request->password);
         $user->save();
 
+        return $user;
+    }
+
+    public function profile(Request $request)
+    {
+        $user = $request->user();
+
+        $user->intro = $request->profile;
+        $user->update();
         return $user;
     }
 
