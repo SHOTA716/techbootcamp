@@ -25,6 +25,7 @@ export default {
     margin: 0 auto;
     margin-bottom: 20px;
     text-align: center;
+   }
   img {
     width: 200px;
     height: auto;
@@ -34,5 +35,4 @@ export default {
     font-weight: bold;
     color: white;
   }
-}
 </style>

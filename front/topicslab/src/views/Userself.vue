@@ -14,7 +14,7 @@
         <TabView>
           <TabPanel header="Topics">
             <div v-if="user !== null">
-              topic
+              {{user.topics}}
             </div>
             <div v-else>
               <Skeleton />
@@ -22,7 +22,7 @@
           </TabPanel>
           <TabPanel header="あなたのコメント" v-if="user !== null">
             <div v-if="user !== null">
-              comment
+              {{user.comments}}
             </div>
             <div v-else>
               <Skeleton />
@@ -105,7 +105,7 @@ export default {
     getUser () {
       axios.get('/sanctum/csrf-cookie')
         .then(() => {
-          axios.get('/api/user')
+          axios.get('/api/mypage')
             .then((res) => {
               if (res.status === 200) {
                 this.user = res.data

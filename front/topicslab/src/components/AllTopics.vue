@@ -68,5 +68,4 @@ export default {
   .p-card.p-component {
     margin-bottom: 20px;
   }
-
 </style>
