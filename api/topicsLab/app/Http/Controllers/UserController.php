@@ -44,6 +44,15 @@ class UserController extends Controller
         return $user;
     }
 
+    public function profile(Request $request)
+    {
+        $user = $request->user();
+
+        $user->intro = $request->profile;
+        $user->update();
+        return $user;
+    }
+
     /**
      * Display the specified resource.
      *
