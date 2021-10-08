@@ -6,12 +6,14 @@
           <TabPanel header="Topics">
             <div v-if="user.topics !== undefined">
               <div v-for="(topic,key) in user.topics" :key="key">
-                {{topic.title}}
+                <div class="topic-title">
+                  {{topic.title}}
                 <div class="fortopic">
-                    <router-link　style="text-decoration:none;" :to="`/topic/${topic.id}`">
+                    <router-link style="text-decoration:none;" :to="`/topic/${topic.id}`">
                       <Button label="トピックへ移動" class="p-button-success"><i class="pi pi-external-link"></i>トピックへ移動</Button>
                     </router-link>
                   </div>
+                </div>
               </div>
             </div>
             <div v-else>
@@ -21,11 +23,13 @@
           <TabPanel header="あなたのコメント">
             <div v-if="user.topics !== undefined">
               <div v-for="(comment,key) in user.comments" :key="key">
-                {{comment.body}}
+                <div class="comments-body">
+                  {{comment.body}}
                 <div class="fortopic">
-                  <router-link　style="text-decoration:none;" :to="`/topic/${comment.topic_id}`">
+                  <router-link style="text-decoration:none;" :to="`/topic/${comment.topic_id}`">
                   <Button label="トピックへ移動" class="p-button-success"><i class="pi pi-external-link"></i>トピックへ移動</Button>
                   </router-link>
+                </div>
                 </div>
               </div>
             </div>
@@ -113,7 +117,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 a {
   text-decoration: none;
 }
@@ -129,6 +133,7 @@ a {
     margin-bottom: 20px;
     box-shadow: 0 3px 7px 0 rgba(0, 0, 0, .3);
   }
+
     .p-button-success {
       border-radius: 10px;
     }
