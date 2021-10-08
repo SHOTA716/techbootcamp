@@ -12,18 +12,18 @@
           <Skeleton />
         </div>
         <div v-if="introEdit==false">
-          {{user.name}}
+          {{user.intro}}
           <Button type="button" v-on:click="introEdit = true">編集</button>
         </div>
         <div v-if="introEdit==true">
-         <Textarea v-model="value" rows="5" cols="60" placeholder="自己紹介を追加"/>
+         <Textarea v-model="profile" rows="5" cols="60" placeholder="自己紹介を追加"/>
           <div class="profbutton">
-            <div v-if="intro==false">
+            <div v-if="intro==null">
               <Button label="プロフィールを公開" class="margin-prof" v-on:click="submit" />
               <Button type="button" v-on:click="introEdit = false">キャンセル</button>
             </div>
             <div v-else>
-              <Button label="プロフィールを追加" class="margin-prof" v-on:click="submit" />
+              <Button label="プロフィールを変更" class="margin-prof" v-on:click="submit" />
               <Button type="button" v-on:click="introEdit = false">キャンセル</button>
             </div>
           </div>
@@ -44,9 +44,6 @@
               <div v-else>
                <Skeleton />
               </div>
-              <span>
-                <router-link :to="`/topic/${topic.id}`">トピックへ移動</router-link>
-              </span>
             </div>
           </TabPanel>
           <TabPanel header="あなたのコメント">
@@ -153,7 +150,6 @@ export default {
         this.messages.submit = '未記入(空白のみ)は送信できません。'
         return
       }
-
       axios.get('/sanctum/csrf-cookie')
         .then(() => {
           axios.post('/api/profile', {
@@ -263,20 +259,11 @@ a {
   .margin-prof{
     margin-right: 10px;
   }
-  
-  // .profbutton{
-  //   float: right;
-  // }
-  // TabView{
-  //   margin-top: 600px;
-  // }
-
   .p-card-content {
     .p-button {
       border-radius: 10px;
     }
   }
-  
   .fortopic {
     text-align: right;
     margin-top: 15px;
