@@ -16,7 +16,7 @@
         <div v-else>
           <Skeleton />
         </div>
-        <Button label="いいね" icon="pi pi-heart" iconPos="right" />
+        <Button label="いいね" icon="pi pi-heart" iconPos="right" v-on:click="TopicLike"/>
       </template>
       <template #footer>
         <span v-if="user === null">
@@ -109,6 +109,38 @@ export default {
           console.log(err)
           this.displayBasic = true
           this.message = '接続に失敗しました。'
+        })
+    },
+
+    submit () {
+      const profile = this.profile.trim()
+      if (!profile) {
+        this.messages.submit = '未記入(空白のみ)は送信できません。'
+        return
+      }
+
+      axios.get('/sanctum/csrf-cookie')
+        .then(() => {
+          axios.post('/api/profile', {
+            profile: this.profile
+          })
+            .then((res) => {
+              if (res.status === 201) {
+                this.$emit('sentComment', res.data)
+              } else {
+                this.messages.connect = '送信に失敗しました。'
+              }
+            })
+            .catch((err) => {
+              console.log(err)
+              this.displayBasic = true
+              this.messages.connect = '送信に失敗しました。'
+            })
+        })
+        .catch((err) => {
+          console.log(err)
+          this.displayBasic = true
+          this.messages.connect = '送信に失敗しました。'
         })
     },
     receiveComment (comment) {
