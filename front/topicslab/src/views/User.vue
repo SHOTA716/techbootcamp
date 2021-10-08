@@ -2,8 +2,18 @@
   <div>
     <Card>
       <template #content>
+        <div v-if="user.id !== undefined">
+          <div class="my_name">
+            <Avatar icon="pi pi-user" class="p-mr-2 avater_icon" size="xlarge" shape="circle" />
+            {{user.name}}
+          </div>
+        </div>
+        <div v-else>
+          <Skeleton width="520px" height="94px" />
+        </div>
+        {{user.intro}}
         <TabView>
-          <TabPanel header="Topics">
+          <TabPanel header="投稿">
             <div v-if="user.topics !== undefined">
               <div v-for="(topic,key) in user.topics" :key="key">
                 <div class="topic-title">
@@ -20,7 +30,7 @@
               <Skeleton />
             </div>
           </TabPanel>
-          <TabPanel header="あなたのコメント">
+          <TabPanel header="コメント">
             <div v-if="user.topics !== undefined">
               <div v-for="(comment,key) in user.comments" :key="key">
                 <div class="comments-body">
@@ -56,6 +66,7 @@ import TabView from 'primevue/tabview'
 import TabPanel from 'primevue/tabpanel'
 import Skeleton from 'primevue/skeleton'
 import Dialog from 'primevue/dialog'
+import Avatar from 'primevue/avatar'
 
 export default {
   name: 'user',
@@ -63,7 +74,8 @@ export default {
     TabView,
     TabPanel,
     Skeleton,
-    Dialog
+    Dialog,
+    Avatar
   },
   data () {
     return {
@@ -137,4 +149,12 @@ a {
     .p-button-success {
       border-radius: 10px;
     }
+
+    .avater_icon{
+   margin: 0 10px 30px 5px;
+}
+
+.my_name{
+  font-size: 2rem;
+}
 </style>

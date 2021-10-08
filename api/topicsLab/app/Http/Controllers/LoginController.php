@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Http\Controllers;
+
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,7 +23,7 @@ class LoginController extends Controller
         } else {
                 return response()->json([
                 'message' => 'Unauthorized'
-            ], 401);
+                ], 401);
         }
         // $Withdrawn = User::withTrashed()->where('email', '=', 'email')->get();
         // if($Withdrawn){
