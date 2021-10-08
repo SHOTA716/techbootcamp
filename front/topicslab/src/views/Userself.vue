@@ -35,7 +35,7 @@
                 <div class="topic-title">
                   {{topic.title}}
                   <div class="fortopic">
-                    <router-link :to="`/topic/${topic_id}`">
+                    <router-link :to="`/topic/${topic.id}`">
                       <Button label="トピックへ移動" class="p-button-success"><i class="pi pi-external-link"></i>トピックへ移動</Button>
                     </router-link>
                   </div>

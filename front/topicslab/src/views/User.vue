@@ -5,18 +5,36 @@
           <TabView>
             <TabPanel header="Topics">
               <div v-for="(topic,key) in user.topics" :key="key">
-                {{topic.title}}
-                <span>
-                  <router-link :to="`/topic/${topic.id}`">トピックへ移動</router-link>
-                </span>
+              <div v-if="user !== null">
+                <div class="topic-title">
+                  {{topic.title}}
+                  <div class="fortopic">
+                    <router-link :to="`/topic/${topic.id}`">
+                      <Button label="トピックへ移動" class="p-button-success"><i class="pi pi-external-link"></i>トピックへ移動</Button>
+                    </router-link>
+                  </div>
+                </div>
               </div>
+              <div v-else>
+               <Skeleton />
+              </div>
+            </div>
             </TabPanel>
             <TabPanel header="あなたのコメント">
               <div v-for="(comment,key) in user.comments" :key="key">
+              <div v-if="user !== null">
+                <div class="comments-body">
                 {{comment.body}}
-                <span>
-                  <router-link :to="`/topic/${comment.topic_id}`">トピックへ移動</router-link>
-                </span>
+                <div class="fortopic">
+                  <router-link :to="`/topic/${comment.topic_id}`">
+                  <Button label="トピックへ移動" class="p-button-success"><i class="pi pi-external-link"></i>トピックへ移動</Button>
+                  </router-link>
+                </div>
+                </div>
+               </div>
+               <div v-else>
+                <Skeleton />
+               </div>
               </div>
             </TabPanel>
           </TabView>
@@ -99,3 +117,24 @@ export default {
   }
 }
 </script>
+
+<style>
+a {
+  text-decoration: none;
+}
+  .fortopic {
+    text-align: right;
+    margin-top: 15px;
+  }
+
+  .topic-title, .comments-body {
+    border:1px solid #f5f5f5;
+    border-radius: 10px;
+    padding: 10px 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 3px 7px 0 rgba(0, 0, 0, .3);
+  }
+    .p-button-success {
+      border-radius: 10px;
+    }
+</style>
