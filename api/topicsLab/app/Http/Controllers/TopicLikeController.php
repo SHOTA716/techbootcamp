@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 use App\Models\Topic;
 use App\Models\POST;
@@ -36,13 +35,11 @@ class TopicLikeController extends Controller
      */
     public function store(Request $request)
     {
-        $user = $request->user();
-        $topic = Topic::find($request->topicId);
-        
-        $TopicLike = new TopicLike();
-        $TopicLike->user()->associate($user);
-        $TopicLike->topic()->associate($topic);
-        $TopicLike->save();
+        // $user = $request->user();
+
+        // $user->user_id = $request->user_id;
+        // $user->topic_id = $request->topic_id;
+        // $TopicLike->save();
     }
 
     /**
